@@ -1,4 +1,4 @@
-package image.preprocessing;
+package image.preprocessing.LabelImage;
 
 import ij.gui.Roi;
 
@@ -6,26 +6,30 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Label
 {
 
-    String[] labels = null;
+    HashMap<String, Integer> labels;
 
     /**
      * 
      * @param labelFileName
-     *            This constructor reads the name of labels from a file.
+     *            This constructor reads the name of labelName from a file.
      * @throws IOException
      */
 
     public Label(String labelFileName)
     {
-        labels = null;
+        labels = new HashMap<String, Integer>();
 
         try
         {
-            readLabelsFromFile(labelFileName);
+            readlabelNameFromFile(labelFileName);
         } catch (IOException e)
         {
             // TODO Auto-generated catch block
@@ -34,13 +38,13 @@ public class Label
 
     }
 
-    public Label(String[] labels)
+    public Label(HashMap<String, Integer> labels)
     {
         this.labels = labels;
 
     }
 
-    public void readLabelsFromFile(String labelFileName) throws IOException
+    public void readlabelNameFromFile(String labelFileName) throws IOException
     {
         BufferedReader br = null;
         int count = 0;
@@ -59,8 +63,8 @@ public class Label
 
             while (line != null)
             {
-
-                labels[count] = line;
+                String[] labelLine = line.split("\\s+");
+                labels.put(labelLine[0], Integer.parseInt(labelLine[1]));
                 line = br.readLine();
                 count = count + 1;
             }
@@ -72,7 +76,7 @@ public class Label
 
     }
 
-    public String[] getLabels()
+    public HashMap<String, Integer> getlabelName()
     {
         return labels;
     }
@@ -80,16 +84,24 @@ public class Label
     public int getLabelForRoi(Roi roi)
     {
 
-        int label = 0;
         String roiName = roi.getName();
-        for (int index = 0; index < labels.length; index++)
+        Iterator<Entry<String, Integer>> labelIterator = labels.entrySet()
+                .iterator();
+        while (labelIterator.hasNext())
         {
-            if (roiName.contains(labels[index]) == true)
+
+            Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>) labelIterator
+                    .next();
+            if (roiName.contains(pair.getKey().toString()) == true)
             {
-                label = index + 1;
+
+                return pair.getValue();
             }
+
         }
-        return label;
+
+        return 0;
+
     }
 
 }

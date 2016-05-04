@@ -1,4 +1,4 @@
-package image.preprocessing;
+package image.preprocessing.LabelImage;
 import java.awt.Point;
 
 /**
