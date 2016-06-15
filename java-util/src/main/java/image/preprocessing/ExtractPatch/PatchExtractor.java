@@ -8,7 +8,7 @@ import ij.process.ImageProcessor;
 
 import java.util.Vector;
 
-public class ExtractPatches
+public class PatchExtractor
 {
     Vector<ImageProcessor> unPaddedPatches;
     Vector<ImageProcessor> paddedPatches;
@@ -16,7 +16,7 @@ public class ExtractPatches
     int patchHeight;
     int patchPadding;
 
-    public ExtractPatches()
+    public PatchExtractor()
     {
         unPaddedPatches = new Vector<ImageProcessor>();
         paddedPatches = new Vector<ImageProcessor>();

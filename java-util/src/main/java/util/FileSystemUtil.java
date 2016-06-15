@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.Set;
 import java.util.Vector;
 
 public class FileSystemUtil
@@ -43,6 +49,22 @@ public class FileSystemUtil
         }
         ;
         return lines;
+    }
+
+    public static void createDirecotry(Path path)
+    {
+        Set<PosixFilePermission> perms = PosixFilePermissions
+                .fromString("rwxr-x---");
+        FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions
+                .asFileAttribute(perms);
+        try
+        {
+            Files.createDirectory(path, attr);
+        } catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }
