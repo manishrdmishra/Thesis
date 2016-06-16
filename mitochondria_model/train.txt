@@ -1,0 +1,4 @@
+/home/manish/Desktop/leber/data_patches/201-12b_20000_12.tif-0  /home/manish/Desktop/leber/label_patches/201-12b_20000_12.tif-seg.tif-0
+/home/manish/Desktop/leber/data_patches/201-12b_20000_12.tif-1	/home/manish/Desktop/leber/label_patches/201-12b_20000_12.tif-seg.tif-1
+/home/manish/Desktop/leber/data_patches/201-12b_20000_12.tif-2	/home/manish/Desktop/leber/label_patches/201-12b_20000_12.tif-seg.tif-2
+/home/manish/Desktop/leber/data_patches/201-12b_20000_12.tif-3	/home/manish/Desktop/leber/label_patches/201-12b_20000_12.tif-seg.tif-3
