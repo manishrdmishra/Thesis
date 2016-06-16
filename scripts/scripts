@@ -1,0 +1,7 @@
+# This command will copy all files which contains "seg" string and places the name
+# in a file. 
+find `pwd`  -name "*seg*" | sort > names
+
+# remove white space from file or folder names
+find -name "* *" -type d | rename 's/ /_/g'    # do the directories first
+find -name "* *" -type f | rename 's/ /_/g'

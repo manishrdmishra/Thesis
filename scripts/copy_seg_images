@@ -1,3 +1,0 @@
-# This command will copy all files which contains "seg" string and places the name
-# in a file. 
-find `pwd`  -name "*seg*" | sort > names
