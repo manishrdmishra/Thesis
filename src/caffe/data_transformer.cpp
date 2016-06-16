@@ -334,6 +334,7 @@ void DataTransformer<Dtype>::Transform(const cv::Mat& cv_img,
     }
   }
 }
+
 #endif  // USE_OPENCV
 
 template<typename Dtype>

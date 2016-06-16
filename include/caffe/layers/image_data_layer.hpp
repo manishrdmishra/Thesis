@@ -11,6 +11,10 @@
 #include "caffe/layer.hpp"
 #include "caffe/layers/base_data_layer.hpp"
 #include "caffe/proto/caffe.pb.h"
+#include "boost/scoped_ptr.hpp"
+#include "caffe/common.hpp"
+#include "caffe/filler.hpp"
+#include "caffe/util/db.hpp"
 
 namespace caffe {
 

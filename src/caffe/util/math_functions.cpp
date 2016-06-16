@@ -145,13 +145,15 @@ void caffe_scal<double>(const int_tp N, const double alpha, double *X) {
 template<>
 void caffe_cpu_axpby<float>(const int_tp N, const float alpha, const float* X,
                             const float beta, float* Y) {
-  cblas_saxpby(N, alpha, X, 1, beta, Y, 1);
+	/* TODO: Manish changes typecast 1 to (int64_t) */
+  cblas_saxpby(N, alpha, X, (int64_t)1, beta, Y, (int64_t)1);
 }
 
 template<>
 void caffe_cpu_axpby<double>(const int_tp N, const double alpha,
                              const double* X, const double beta, double* Y) {
-  cblas_daxpby(N, alpha, X, 1, beta, Y, 1);
+	/*Manish changes typecast 1 to (int64_t) */
+  cblas_daxpby(N, alpha, X, (int64_t)1, beta, Y, (int64_t)1);
 }
 
 template<>

@@ -119,7 +119,7 @@ class LayerRegisterer {
  public:
   LayerRegisterer(const string& type,
                   shared_ptr<Layer<Dtype> > (*creator)(const LayerParameter&)) {
-    // LOG(INFO) << "Registering layer type: " << type;
+     LOG(INFO) << "Registering layer type: " << type;
     LayerRegistry<Dtype>::AddCreator(type, creator);
   }
 };

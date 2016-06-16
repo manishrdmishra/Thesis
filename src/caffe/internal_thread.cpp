@@ -61,4 +61,5 @@ void InternalThread::StopInternalThread() {
   }
 }
 
+
 }  // namespace caffe
