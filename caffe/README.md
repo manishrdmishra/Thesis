@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Thesis
-=======
 # OpenCL Caffe
 
 **This is an experimental, community-maintained branch led by Fabian Tschopp (@naibaf7). It is a work-in-progress.**
@@ -95,4 +92,3 @@ http://arxiv.org/abs/1509.03371
 ## Further Details
 
 Refer to the BVLC/caffe master branch README for all other details such as license, citation, and so on.
->>>>>>> 08dde6b7aa1c9beaa2deaf0da883709e65bc1996

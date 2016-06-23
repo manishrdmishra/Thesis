@@ -53,6 +53,7 @@ void BasePrefetchingDataLayer<Dtype>::Forward_gpu(
   prefetch_free_.push(batch);
 }
 
+<<<<<<< HEAD
 
 template <typename Dtype>
 void BasePrefetchingDenseDataLayer<Dtype>::Forward_gpu(
@@ -76,6 +77,8 @@ void BasePrefetchingDenseDataLayer<Dtype>::Forward_gpu(
 }
 
 INSTANTIATE_LAYER_GPU_FORWARD(BasePrefetchingDenseDataLayer);
+=======
+>>>>>>> add_extract_patch_module
 INSTANTIATE_LAYER_GPU_FORWARD(BasePrefetchingDataLayer);
 
 }  // namespace caffe

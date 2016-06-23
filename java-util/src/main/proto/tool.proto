@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package main.proto;
+option java_package = "main.proto";
+option java_outer_classname = "ToolProtos";
+
+message AugmentTechniqueParam
+	{
+  		 string name = 1;
+  		 int32 intValue = 2;
+  		 string stringValue = 3;
+	}
+message AugmentInstructionParam
+	{
+		 repeated AugmentTechniqueParam augmentTechnique = 1;
+	}
+message AugmentInstructionsParam
+	{
+		 repeated AugmentInstructionParam  augmentInstruction = 1;
+	}
+message ExtractPatchesParam
+	{
+		 int32 patchWidth = 1;
+		 int32 patchHeight = 2;
+		 int32 padding = 3;
+		//path of data directory 
+		 string dataPath = 4;
+		//path of label directory
+		 string labelPatch = 5;
+		//path where the data patches will be saved
+		 string dataPatchPath = 6;
+		// path where the label patches will be saved
+		 string labelPatchPath = 7;
+	}
+message ToolParam
+	{
+		 AugmentInstructionsParam  augmentInstructionsParam = 1;
+		 ExtractPatchesParam  extractPatchesParam = 2;
+	}
+	
+	
+ 

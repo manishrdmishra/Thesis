@@ -1,0 +1,9 @@
+extractPatchesParam {
+	patchWidth: 512
+ 	patchHeight: 512
+	padding:  180
+	dataPath: /home/manish/Desktop/leber/data/
+	labelPath: /home/manish/Desktop/leber/label
+	dataPatchPath: /home/manish/Desktop/leber/data_patches
+	labelPatchPath: /home/manish/Desktop/leber/lable_patches
+}

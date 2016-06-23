@@ -19,19 +19,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import main.java.util.FileSystemUtil;
+
 /**
- * 1) fileName
- * This command takes input the name of the file which contains the name
- * of segmented images and their corresponding roi file name. The structure of
- * the text file is given below.
+ * 1) fileName This command takes input the name of the file which contains the
+ * name of segmented images and their corresponding roi file name. The structure
+ * of the text file is given below.
  * 
  * seg_image-1.tif seg_image_1.tif.roi seg_image_2.tif seg_image_2.tif.roi ....
- * 2) path_to_store_labelled_images
- * 3) File which contains class label mapping
- *   ex. 
- *   
- *   healhty 1
- *   tumor   2
+ * 2) path_to_store_labelled_images 3) File which contains class label mapping
+ * ex.
+ * 
+ * healhty 1 tumor 2
  */
 
 public class LabelImagesCommand implements Command
@@ -51,11 +50,11 @@ public class LabelImagesCommand implements Command
     @Override
     public void parseArguments(String[] args)
     {
-       
+
         fileName = args[0];
         directoryName = args[1];
         Vector<String> lines = null;
-        lines = readFile();
+        lines = FileSystemUtil.readFile(fileName);
         Vector<String> tokens = null;
         tokens = splitLines(lines);
         imageRoiPairs = convertTokensInImageRoiPairs(tokens);
@@ -93,7 +92,7 @@ public class LabelImagesCommand implements Command
                     roiPathName);
 
             // Uncomment it to show the labelled image
-            //labeledImage.show();
+            // labeledImage.show();
             Path newPath = new File(directoryName + "/"
                     + (Paths.get(pair.getKey())).getFileName()).toPath();
             System.out.println("Saving labeled image at: " + newPath);
@@ -101,42 +100,6 @@ public class LabelImagesCommand implements Command
             fileSaver.saveAsTiff(newPath.toString());
         }
 
-    }
-
-    /**
-     * Read the lines of files and stores them in a vector of string.
-     * 
-     * @return
-     */
-    private Vector<String> readFile()
-    {
-        Vector<String> lines = new Vector<String>();
-        try
-        {
-
-            FileInputStream fstream = new FileInputStream(fileName);
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    fstream));
-
-            String strLine;
-
-            // Read File Line By Line
-            while ((strLine = br.readLine()) != null)
-            {
-                // Print the content on the console
-                System.out.println(strLine);
-                lines.add(strLine);
-
-            }
-
-            // Close the input stream
-            br.close();
-        } catch (IOException exception)
-        {
-            exception.printStackTrace();
-        }
-        ;
-        return lines;
     }
 
     /**
