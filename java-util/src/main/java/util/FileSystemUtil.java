@@ -1,6 +1,7 @@
 package main.java.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -65,6 +66,32 @@ public class FileSystemUtil
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public static Vector<File> getFiles(String directoryName)
+    {
+
+        File directory = new File(directoryName);
+
+        // get all the files from a directory
+
+        File[] fList = directory.listFiles();
+        Vector<File> fileNames = new Vector<File>();
+
+        for (File file : fList)
+        {
+
+            if (file.isFile())
+            {
+
+                fileNames.add(file);
+                // System.out.println(file.getName());
+
+            }
+
+        }
+        return fileNames;
+
     }
 
 }

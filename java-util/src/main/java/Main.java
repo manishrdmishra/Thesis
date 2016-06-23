@@ -9,10 +9,9 @@ public class Main
 
     // check the number of arguments
     String[] validCommands = { "labelImages", "sampleImages", "extractPatches",
-            "help" };
+            "createInputFile", "help" };
     Command command = null;
 
-   
     public static void main(String[] args)
     {
         System.out.println("Number of arguments : " + args.length);
@@ -61,6 +60,9 @@ public class Main
 
         case "extractPatches":
             command = new ExtractPatchesCommand();
+            break;
+        case "createInputFile":
+            command = new CreateInputFileCommand();
             break;
         case "help":
             printValidCommands();
