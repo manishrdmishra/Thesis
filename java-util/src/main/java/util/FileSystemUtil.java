@@ -1,6 +1,11 @@
 package main.java.util;
 
+import ij.ImagePlus;
+import ij.io.FileSaver;
+import ij.process.ImageProcessor;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,7 +56,7 @@ public class FileSystemUtil
         return lines;
     }
 
-    public static void createDirecotry(Path path)
+    public static void createDirectory(Path path)
     {
         Set<PosixFilePermission> perms = PosixFilePermissions
                 .fromString("rwxr-x---");
@@ -64,6 +69,74 @@ public class FileSystemUtil
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    public static Vector<File> getFiles(String directoryName)
+    {
+
+        File directory = new File(directoryName);
+
+        // get all the files from a directory
+
+        File[] fileList = directory.listFiles();
+        Vector<File> fileNames = new Vector<File>();
+
+        for (File file : fileList)
+        {
+
+            if (file.isFile())
+            {
+
+                fileNames.add(file);
+                // System.out.println(file.getName());
+
+            }
+
+        }
+        return fileNames;
+
+    }
+
+    public static Vector<File> getDirectories(String directoryName)
+    {
+
+        File directory = new File(directoryName);
+
+        // get all the files from a directory
+
+        File[] fileList = directory.listFiles();
+        Vector<File> directoryNames = new Vector<File>();
+
+        for (File file : fileList)
+        {
+
+            if (file.isDirectory())
+            {
+
+                directoryNames.add(file);
+                // System.out.println(file.getName());
+
+            }
+
+        }
+        return directoryNames;
+
+    }
+
+    public static void saveImages(Path path, Vector<String> imageNames,
+            Vector<ImageProcessor> imageProcessors)
+    {
+        for (int i = 0; i < imageProcessors.size(); i++)
+        {
+
+            ImagePlus patchImage = new ImagePlus(imageNames.get(i),
+                    imageProcessors.get(i));
+            Path newPath = new File(path + "/" + imageNames.get(i)).toPath();
+            System.out.println("Saving image at: " + newPath);
+            FileSaver fileSaver = new FileSaver(patchImage);
+            fileSaver.saveAsTiff(newPath.toString());
+
         }
     }
 

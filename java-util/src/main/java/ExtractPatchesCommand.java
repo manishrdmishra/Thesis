@@ -128,6 +128,8 @@ public class ExtractPatchesCommand implements Command
         readImagesAndExtractPatches(dataFileName, extractPatches, dataPatchPath);
 
         // Extract patches from label images
+        // no padding is needed for labels
+        extractPatches.setPadding(0);
         readImagesAndExtractPatches(labelFileName, extractPatches,
                 labelPatchPath);
     }

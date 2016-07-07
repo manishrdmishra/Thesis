@@ -5,3 +5,8 @@ find `pwd`  -name "*seg*" | sort > names
 # remove white space from file or folder names
 find -name "* *" -type d | rename 's/ /_/g'    # do the directories first
 find -name "* *" -type f | rename 's/ /_/g'
+
+# to get the columne from different files and put them in one file 
+# http://stackoverflow.com/questions/28192479/get-multiple-columns-from-multiple-files-into-a-single-file-shell
+# paste 1 2 3|awk -v OFS='\t' '{print...}'
+paste ./data_patches/names ./label_patches/names|awk '{print $1, $2}'
