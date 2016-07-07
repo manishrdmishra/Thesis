@@ -100,11 +100,11 @@ public class RoiPixels
                         segmenteImageProcessor.getPixel(point.x, point.y,
                                 intensity);
 
-                        for (int i = 0; i < intensity.length; i++)
-                        {
-                            // System.out.print(" " + intensity[i]);
-                        }
-                        System.out.println();
+//                        for (int i = 0; i < intensity.length; i++)
+//                        {
+//                             System.out.print(" " + intensity[i]);
+//                        }
+                     //   System.out.println();
                         Pixel pixel = new Pixel(point, intensity);
                         pixels.add(pixel);
 
