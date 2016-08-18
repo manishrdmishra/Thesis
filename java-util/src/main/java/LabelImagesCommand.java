@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import main.java.util.FileSystemUtil;
+import main.java.util.StringUtil;
 
 /**
  * 1) fileName This command takes input the name of the file which contains the
@@ -56,8 +57,8 @@ public class LabelImagesCommand implements Command
         Vector<String> lines = null;
         lines = FileSystemUtil.readFile(fileName);
         Vector<String> tokens = null;
-        tokens = splitLines(lines);
-        imageRoiPairs = convertTokensInImageRoiPairs(tokens);
+        tokens = StringUtil.splitLines(lines);
+        imageRoiPairs = StringUtil.convertTokensInPairs(tokens);
 
     }
 
@@ -102,45 +103,4 @@ public class LabelImagesCommand implements Command
 
     }
 
-    /**
-     * This function splits lines into tokens and stores them into a vector. We
-     * assume that the tokens are space separated.
-     * 
-     * @return
-     */
-    private Vector<String> splitLines(Vector<String> lines)
-    {
-        Vector<String> tokens = new Vector<String>();
-        for (String line : lines)
-        {
-            String[] splited = line.split("\\s+");
-            for (String string : splited)
-            {
-                tokens.add(string);
-            }
-        }
-        return tokens;
-    }
-
-    private HashMap<String, String> convertTokensInImageRoiPairs(
-            Vector<String> tokens)
-    {
-        HashMap<String, String> imageRoiPairs = new HashMap<String, String>();
-        if (tokens.size() % 2 != 0)
-        {
-            String errorMessage = "The number of tokens should be even";
-            System.out.print(errorMessage);
-
-            // throw new Exception(errorMessage);
-        }
-        for (int i = 0; i < tokens.size(); i = i + 2)
-        {
-            System.out.println("key: " + tokens.get(i) + "  value: "
-                    + tokens.get(i + 1));
-            imageRoiPairs.put(tokens.get(i), tokens.get(i + 1));
-
-        }
-        return imageRoiPairs;
-
-    }
 }

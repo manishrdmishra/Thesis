@@ -1,17 +1,18 @@
 package image.preprocessing.LabelImage;
+
 import java.awt.Point;
 
 /**
  * 
  * @author manish
- *
+ * 
  */
 public class Pixel
 {
     private Point coordinate;
     private int[] intensity;
 
-    Pixel(Point location, int[] intensity)
+    public Pixel(Point location, int[] intensity)
     {
         this.coordinate = location;
         this.intensity = intensity;

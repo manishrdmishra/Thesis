@@ -10,7 +10,11 @@ import java.util.Vector;
 
 import main.java.exception.NumberOfArgumentsMismatchException;
 import main.java.util.FileSystemUtil;
-
+/**
+ * Creates input file for segnet 
+ * @author manish
+ *
+ */
 public class CreateInputFileCommand implements Command
 {
 

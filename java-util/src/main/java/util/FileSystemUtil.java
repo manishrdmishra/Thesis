@@ -41,7 +41,7 @@ public class FileSystemUtil
             while ((strLine = br.readLine()) != null)
             {
                 // Print the content on the console
-                System.out.println(strLine);
+                //System.out.println(strLine);
                 lines.add(strLine);
 
             }

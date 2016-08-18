@@ -1,6 +1,7 @@
 package image.preprocessing.LabelImage;
 
 import ij.gui.Roi;
+import ij.gui.TextRoi;
 import ij.io.RoiDecoder;
 import ij.process.ImageProcessor;
 
@@ -32,7 +33,7 @@ import java.util.Vector;
 // for (var y=0; y<r.height; y++) {
 // for (var x=0; x<r.width; x++) {
 // if (mask.getPixel(x,y)!=0)
-// IJ.log(x+" \t"+y+" \t"+z+"  \t"+ip.getPixel(r.x+x,r.y+y));
+// IJ.log(x+" \t"+y+" \t"+z+" \t"+ip.getPixel(r.x+x,r.y+y));
 // }
 // }
 
@@ -41,14 +42,24 @@ public class RoiPixels
 
     Roi roi;
     Vector<Pixel> pixels;
+    Vector<Float> floatIntensities;
 
-    RoiPixels(Path roiFilePath, ImageProcessor segmenteImageProcessor)
+    public RoiPixels(Path roiFilePath, ImageProcessor segmenteImageProcessor)
     {
         roi = null;
         pixels = new Vector<Pixel>();
         initializeRoi(roiFilePath);
         fillPixelIndicesAndIntensity(segmenteImageProcessor);
 
+    }
+
+    public RoiPixels(Path roiFilePath, ImageProcessor segmenteImageProcessor,
+            int type)
+    {
+        roi = null;
+        floatIntensities = new Vector<Float>();
+        initializeRoi(roiFilePath);
+        fillFloatIntensities(segmenteImageProcessor);
     }
 
     public Vector<Pixel> getRoiPixels()
@@ -59,6 +70,11 @@ public class RoiPixels
     public Roi getRoi()
     {
         return roi;
+    }
+
+    public Vector<Float> getFloatIntensities()
+    {
+        return floatIntensities;
     }
 
     private void initializeRoi(Path roiFilePath)
@@ -82,9 +98,9 @@ public class RoiPixels
 
         if (roi != null)
         {
-            System.out.println("name :" + roi.getLength());
+            // System.out.println("name :" + roi.getLength());
 
-            System.out.println("name :" + roi.getName());
+            // System.out.println("name :" + roi.getName());
 
             ImageProcessor roiMask = roi.getMask();
             Rectangle roiRect = roi.getBounds();
@@ -100,13 +116,50 @@ public class RoiPixels
                         segmenteImageProcessor.getPixel(point.x, point.y,
                                 intensity);
 
-//                        for (int i = 0; i < intensity.length; i++)
-//                        {
-//                             System.out.print(" " + intensity[i]);
-//                        }
-                     //   System.out.println();
+                        // for (int i = 0; i < intensity.length; i++)
+                        // {
+                        // System.out.print(" " + intensity[i]);
+                        // }
+                        // System.out.println();
                         Pixel pixel = new Pixel(point, intensity);
                         pixels.add(pixel);
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    private void fillFloatIntensities(ImageProcessor segmenteImageProcessor)
+    {
+
+        if (roi != null)
+        {
+            // System.out.println("name :" + roi.getLength());
+            //
+            // System.out.println("name :" + roi.getName());
+
+            ImageProcessor roiMask = roi.getMask();
+            Rectangle roiRect = roi.getBounds();
+            for (int y = 0; y < roiRect.height; y++)
+            {
+                for (int x = 0; x < roiRect.width; x++)
+                {
+                    if (roiMask.getPixel(x, y) != 0)
+                    {
+
+                        Point point = new Point(roiRect.x + x, roiRect.y + y);
+                        float intensity = segmenteImageProcessor.getf(point.x,
+                                point.y);
+
+                        // for (int i = 0; i < intensity.length; i++)
+                        // {
+                        // System.out.print(" " + intensity[i]);
+                        // }
+                        // System.out.println();
+
+                        floatIntensities.add(intensity);
 
                     }
                 }
