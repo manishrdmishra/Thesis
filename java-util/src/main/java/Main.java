@@ -9,7 +9,7 @@ public class Main
 
     // check the number of arguments
     String[] validCommands = { "labelImages", "sampleImages", "extractPatches",
-            "createInputFile", "postprocessing", "help" };
+            "createInputFile", "projectScores", "extractRoi", "help" };
     Command command = null;
 
     public static void main(String[] args)
@@ -66,10 +66,13 @@ public class Main
             command = new CreateInputFileCommand();
             break;
 
-        case "postpro" + "cessing":
+        case "projectScores":
             command = new ProcessProbabilityMapsCommand();
             break;
 
+        case "extractRoi":
+            command = new ExtractRoiCommand();
+            break;
         case "help":
             printValidCommands();
             break;

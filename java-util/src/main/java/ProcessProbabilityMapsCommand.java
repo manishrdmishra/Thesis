@@ -16,7 +16,7 @@ import java.util.Vector;
 import java.util.Map.Entry;
 
 import main.java.exception.NumberOfArgumentsMismatchException;
-import main.java.image.postprocessing.GenerateProbabilityMap.ProcessProbabilityMaps;
+import main.java.image.postprocessing.ProjectObjectScores.ProcessProbabilityMaps;
 import main.java.util.FileSystemUtil;
 import main.java.util.StringUtil;
 

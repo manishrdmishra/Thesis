@@ -1,4 +1,4 @@
-package main.java.image.postprocessing.GenerateProbabilityMap;
+package main.java.image.postprocessing.ProjectObjectScores;
 
 import java.util.Vector;
 

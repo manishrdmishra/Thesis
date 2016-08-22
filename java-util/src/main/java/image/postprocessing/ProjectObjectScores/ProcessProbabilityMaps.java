@@ -1,4 +1,4 @@
-package main.java.image.postprocessing.GenerateProbabilityMap;
+package main.java.image.postprocessing.ProjectObjectScores;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -178,6 +178,14 @@ public class ProcessProbabilityMaps
 
             DecimalFormat myFormatter = new DecimalFormat("0.00");
             String output = myFormatter.format(roiScores.get(i));
+            if (roiScores.get(i) <= 0.5)
+            {
+                g.setColor(Color.GREEN);
+
+            } else
+            {
+                g.setColor(Color.RED);
+            }
             g.drawString(output, (int) roiCenters.get(i).getX(),
                     (int) roiCenters.get(i).getY());
 
@@ -204,15 +212,15 @@ public class ProcessProbabilityMaps
         g.dispose();
 
         // Use a label to display the image
-//        JFrame frame = new JFrame();
-//        ImageIcon imageIcon = new ImageIcon(image);
-//        JLabel jLabel = new JLabel();
-//        jLabel.setIcon(imageIcon);
-//        JPanel mainPanel = new JPanel(new BorderLayout());
-//        mainPanel.add(jLabel);
-//        // add more components here
-//        frame.add(mainPanel);
-//        frame.setVisible(true);
+        // JFrame frame = new JFrame();
+        // ImageIcon imageIcon = new ImageIcon(image);
+        // JLabel jLabel = new JLabel();
+        // jLabel.setIcon(imageIcon);
+        // JPanel mainPanel = new JPanel(new BorderLayout());
+        // mainPanel.add(jLabel);
+        // // add more components here
+        // frame.add(mainPanel);
+        // frame.setVisible(true);
         System.out.println("done!!");
         try
         {
