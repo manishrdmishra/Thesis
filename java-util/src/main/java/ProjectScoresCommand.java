@@ -27,7 +27,7 @@ import main.java.util.StringUtil;
  * @author manish
  * 
  */
-public class ProcessProbabilityMapsCommand implements Command
+public class ProjectScoresCommand implements Command
 {
     ProcessProbabilityMaps processMaps = new ProcessProbabilityMaps();
     // private String fileName = null;

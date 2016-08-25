@@ -1,7 +1,10 @@
 package main.java.image.postprocessing.ExtractRoi;
 
+import java.nio.file.Paths;
+
 import ij.ImagePlus;
 import ij.measure.ResultsTable;
+import ij.plugin.filter.BackgroundSubtracter;
 import ij.plugin.filter.ParticleAnalyzer;
 import ij.plugin.frame.RoiManager;
 import ij.process.FloodFiller;
@@ -12,6 +15,11 @@ public class ExtractRoi
     private String imageName;
     private String pathToSaveRoi;
     private ImageProcessor imageProcessor;
+    int roiCount = 0;
+    private final int NUMBER_OF_EROSION = 20;
+    private final int NUMBER_OF_DILATION = 10;
+    private final int BACKGROUND = 255;
+    private final int FOREGROUND = 0;
 
     public ExtractRoi(String imageName, String pathToSaveRoi)
     {
@@ -21,39 +29,55 @@ public class ExtractRoi
 
     public ExtractRoi()
     {
-        imageName = null;
-        pathToSaveRoi = null;
+        this.imageName = null;
+        this.pathToSaveRoi = null;
+    }
+
+    public ExtractRoi(String pathToSaveRoi)
+    {
+        this.pathToSaveRoi = pathToSaveRoi;
     }
 
     public void getRoi()
     {
         initilizeImageProcessor();
+
+        // create the binary image by thresholding with the
+        // default threshold value
         thresholdImage();
-        imageProcessor.invertLut();
 
-        fill(imageProcessor, 255, 0);
+        // fill the holes to complete the mitochondria
+        fill(imageProcessor, FOREGROUND, BACKGROUND);
 
-        for (int i = 0; i < 20; i++)
+        // do the erosion to split the attached mitochondria
+        for (int i = 0; i < NUMBER_OF_EROSION; i++)
         {
             imageProcessor.erode();
         }
-        for (int i = 0; i < 10; i++)
+        // do dilation to gain the lost pixels during erosion
+        for (int i = 0; i < NUMBER_OF_DILATION; i++)
         {
             imageProcessor.dilate();
         }
         ResultsTable table = new ResultsTable();
 
         RoiManager manager = new RoiManager(true);
-        
+
         ParticleAnalyzer.setRoiManager(manager);
         ParticleAnalyzer analyzer = new ParticleAnalyzer(
                 ij.plugin.filter.ParticleAnalyzer.ADD_TO_MANAGER,
-                ij.measure.Measurements.AREA, table, 5000, Double.MAX_VALUE,0,1);
+                ij.measure.Measurements.AREA, table, 5000, Double.MAX_VALUE, 0,
+                1);
         ImagePlus imagePlus = new ImagePlus("test", imageProcessor);
-     
+
         analyzer.analyze(imagePlus, imageProcessor);
-        manager.runCommand("Save", "roi_test.zip");
-        //analyzer.run(imageProcessor);
+        String path = pathToSaveRoi + "/" + Paths.get(imageName).getFileName()
+                + "-roi.zip";
+        System.out.println("Saving roi at path : " + path);
+        manager.runCommand("Save", path);
+        roiCount = manager.getCount();
+        System.out.println("Number of roi extracted : " + roiCount);
+        // analyzer.run(imageProcessor);
         (new ImagePlus("test", imageProcessor)).show();
 
     }

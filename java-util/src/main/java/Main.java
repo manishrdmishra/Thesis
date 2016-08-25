@@ -67,7 +67,7 @@ public class Main
             break;
 
         case "projectScores":
-            command = new ProcessProbabilityMapsCommand();
+            command = new ProjectScoresCommand();
             break;
 
         case "extractRoi":
