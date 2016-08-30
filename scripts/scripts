@@ -10,3 +10,12 @@ find -name "* *" -type f | rename 's/ /_/g'
 # http://stackoverflow.com/questions/28192479/get-multiple-columns-from-multiple-files-into-a-single-file-shell
 # paste 1 2 3|awk -v OFS='\t' '{print...}'
 paste ./data_patches/names ./label_patches/names|awk '{print $1, $2}'
+
+
+
+**********************************
+Get the scores from score.txt file
+
+grep "^score"  scores.txt |cut -d' ' -f5 >> H4IIE_scores.txt
+
+**********************************
