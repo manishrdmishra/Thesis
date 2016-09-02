@@ -6,9 +6,9 @@
 %% path where the predicted map is saved
 %predictedImageFolderPath = '/home/manish/git/Documents/fifth_sem/thesis/prediction';
 
-predictedImageFolderPath = '/home/manish/git/Documents/fifth_sem/thesis/post_processed_images/max_probabilitymap_images';
+predictedImageFolderPath = '/home/manish/git/Documents/fifth_sem/thesis/restult_folder/all_predicted_images/H4IIE_seg/';
 %% path where the predicted map will be saved as png images
-resultPath = '/home/manish/git/Documents/fifth_sem/thesis/post_processed_images';
+resultPath = '/home/manish/git/Documents/fifth_sem/thesis/restult_folder/all_predicted_images/H4IIE_seg_png';
 
 folderNames = dir(predictedImageFolderPath);
 counter = 0;
