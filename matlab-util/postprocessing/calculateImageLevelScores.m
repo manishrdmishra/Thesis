@@ -1,17 +1,19 @@
-function [imageScore, heterogeneityScore ] = calculateImageLevelScores(roiFile , healthyProbabilty ,tumorProbability)
+function [mitochondriaScores, centerOfPatches ] = calculateImageLevelScores(roiFile , healthyProbabilty ,tumorProbability)
 
 load(roiFile,'roi');
 numOfObjects = size(roi,2);
 mitochondriaScores = zeros(numOfObjects,1);
 
-for i = 1 : numOfObjects
-    mitochondriaScores(i) = calculateMitochondriaScore(roi(i), healthyProbabilty , tumorProbability);
-end
-imageScore = mean(mitochondriaScores,1);
-heterogeneityScore  = std(mitochondriaScores,1);
+centerOfPatches = zeros(numOfObjects,2);
 
-fprintf('image score : %lf\n' ,imageScore);
-fprintf('heterogeneity score : %lf',  heterogeneityScore);
+
+for i = 1 : numOfObjects
+    [score , centroid] = calculateMitochondriaScore(roi(i), healthyProbabilty , tumorProbability);
+    mitochondriaScores(i) = score;
+    centerOfPatches(i,1) = centroid.x;
+    centerOfPatches(i,2) =  centroid.y;
+    
+end
 
 
 end
@@ -22,16 +24,19 @@ function [ score, centroid ] = calculateMitochondriaScore(roi,healthyProbabilty,
 
 totalScore = 0;
 for i = 1:size(roi.x , 1)
-    healthy = int( healthyProbabilty(roi.x(i), roi.y(i)) - tumorProbability(roi.x(i), roi.y(i)));
-    tumor = tumorProbability(roi.x(i), roi.y(i)) - healthyProbabilty(roi.x(i), roi.y(i));
+    healthy = ( healthyProbabilty(roi.y(i), roi.x(i)) - tumorProbability(roi.y(i), roi.x(i)));
+    tumor = tumorProbability(roi.y(i), roi.x(i)) - healthyProbabilty(roi.y(i), roi.x(i));
     
     totalScore = totalScore + exp(tumor) / ( exp( tumor) + exp (healthy) );
 end
 
 score =  (totalScore / size(roi.x,1));
+centroid.x = mean(roi.x);
+centroid.y = mean(roi.y);
+fprintf('mitochondria x : %f, y : %f\n' ,centroid.x , centroid.y);
+fprintf('mitochondria score : %f\n' ,score);
 
-fprintf('mitochondria score : %lf\n' ,score);
-centroid = mean(roi);
+
 
 end
 

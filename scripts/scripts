@@ -19,3 +19,10 @@ Get the scores from score.txt file
 grep "^score"  scores.txt |cut -d' ' -f5 >> H4IIE_scores.txt
 
 **********************************
+
+Get the filtered score from score.txt file 
+
+egrep '^File|^score' scores.txt 
+
+
+**********************************

@@ -71,9 +71,9 @@ function[labelMatrix , numOfObjects ] = labelObjects(binaryImage)
 % of given criterion
 BW3 = bwpropfilt(binaryImage,'area',[1000 10000000]);
 % show the image with extracted objects image
-figure ;
-imshow(BW3);
-title('extracted image');
+% figure ;
+% imshow(BW3);
+% title('extracted image');
 % label the connected components
 [labelMatrix , numOfObjects ] = bwlabel(BW3);
 
@@ -96,8 +96,10 @@ maxCols = 10000;
 for i = 1:numOfObjects
     % to find the row and column for 2nd object
     [r,c] = find(labelMatrix == i);
-    roi(i).x= r;
-    roi(i).y= c;
+    % row is y 
+    % col is x 
+    roi(i).x= c;
+    roi(i).y= r;
    
     %     roi(i) = c;
     % BW = roicolor(L,1,1); % it will generate roi corresponding
