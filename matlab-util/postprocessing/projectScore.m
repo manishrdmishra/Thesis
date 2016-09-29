@@ -1,4 +1,8 @@
 function[]= projectScore(pathToSave, imageName, mitochondriaScores, centerOfPatches)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function project the score of single mitochondria at its 
+% centroid. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 image = imread(imageName);
 

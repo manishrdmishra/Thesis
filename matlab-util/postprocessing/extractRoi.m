@@ -1,8 +1,12 @@
 function[] =  extractRoi(imageFolderPath, roiFolder)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function extracts all the ROI for a given image and saves them 
+% in roiFolder as .mat file. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 imageNames = dir(imageFolderPath);
 
-
+% iterate over all the images in a given directory 
 for i = 3:size(imageNames , 1)
     imagePath = fullfile(imageFolderPath,imageNames(i).name);
     %imageName = '/home/manish/git/Documents/fifth_sem/thesis/restult_folder/all_predicted_images_processed/tumour_seg_png/results-1/149-12b_20000_1.png';
