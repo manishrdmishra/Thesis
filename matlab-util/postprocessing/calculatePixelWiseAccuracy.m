@@ -71,8 +71,11 @@ for i = 1:size(testImageDirectories , 1)
         % count total number of pixels for each class
         background_pixel_count = sum(confusion_matrix(1,:));
         healthy_pixel_count = sum(confusion_matrix(2,:));
-        tumor_pixel_count = sum(confusion_matrix(2,:));
+        tumor_pixel_count = sum(confusion_matrix(3,:));
         
+        background_accuracy = 0;
+        healthy_accuracy = 0;
+        tumor_accuracy = 0;
         if( background_pixel_count > 0 )
             background_accuracy = confusion_matrix(1,1)/  background_pixel_count;
         end
@@ -82,9 +85,12 @@ for i = 1:size(testImageDirectories , 1)
         if ( tumor_pixel_count > 0 )
             tumor_accuracy = confusion_matrix(3,3) / tumor_pixel_count;
         end
+        
+        
+        fprintf(fileID,'file : background accuracy  : %f\n' ,background_accuracy);
+        fprintf(fileID,'file : healthy accuracy : %f\n' ,healthy_accuracy);
+        fprintf(fileID,'file : tumor accuracy : %f\n' ,tumor_accuracy);
     end
-    fprintf(fileID,'file : background accuracy %lf\n' ,background_accuracy);
-    fprintf(fileID,'file : healthy accuracy %lf\n' ,healthy_accuracy);
-    fprintf(fileID,'file : tumor accuracy %lf\n' ,tumor_accuracy);
+   
     
 end

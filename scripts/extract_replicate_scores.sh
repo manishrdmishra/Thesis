@@ -2,12 +2,10 @@
 ####################################################
 # There are three arguments for this function 
 # 1 - score_file_dir ( root directory where score file is ketp )
-# 2 - hi/image ( option to calculate heterogeneity index or image leve cancer 
-#      score)
-# 3 - text_file_path ( where information of replicates are written)
-# 4 - result_file_dir ( where the resulted text file will be saved )
+# 2 - text_file_path ( where information of replicates are written)
+# 3 - result_file_dir ( where the resulted text file will be saved )
 ####################################################
-#sample run command : ./extract_replicate_wise_scores.sh L5612 56-12
+#sample run command :./extract_replicate_scores.sh  /home/manish/git/Documents/fifth_sem/thesis/restult_folder/test
 #egrep -n  '*L5612*|*56-12*'  scores.txt
 #sed '8229q;d' scores.txt
 function get_replicate_wise_scores {
@@ -15,20 +13,20 @@ function get_replicate_wise_scores {
     search_file_path="$1/$search_file_name"
     echo "$search_file_path"
 
-    increment_value=' ';
-    if [ "$2" == "hi" ];
-    then
-        increment_value=2;
-    elif [ "$2" = "image" ];
-    then
-        increment_value=1;
-    fi
-    echo "$increment_value"
-
-    #some constant values used during search
-    q="q"
-    d="d"
-    comma=";"
+#    increment_value=' ';
+#    if [ "$2" == "hi" ];
+#    then
+#        increment_value=2;
+#    elif [ "$2" = "image" ];
+#    then
+#        increment_value=1;
+#    fi
+#    echo "$increment_value"
+#
+#    #some constant values used during search
+#    q="q"
+#    d="d"
+#    comma=";"
 
     # loop over the text file which contains the
     # biological replicate name 
@@ -46,27 +44,29 @@ function get_replicate_wise_scores {
         done
 
         search_string="${search_string::-1}"
-        echo "$search_string"
+        echo replicate search string : "$search_string"
         result_file_name=${arr[0]}
         echo "$result_file_path"
-        lines=$(egrep -n "$search_string" "$search_file_path" | cut -d':' -f1)
+        #lines=$(egrep -n "$search_string" "$search_file_path" | cut -d' ' -f7)
         #echo "$lines"
-        arr=($lines)
-        tLen=${#arr[@]}
+        #  arr=($lines)
+        #    tLen=${#arr[@]}
         text_extenstion=".txt"
-        result_file_path="$4/$result_file_name--$tLen$text_extension"
-        echo total number of line : ${#arr[@]}
-        for (( i=0; i<${tLen}; i++ ));
-        do
-            #    echo ${arr[$i]}
-            next_line="$((${arr[$i]} + $increment_value))"
-            #echo "$next_line" 
-            argument="$next_line$q$comma$d"
-            #    echo "$argument"
-            #sed $argument $search_file_path | grep "score" >> $result_file_path
-            sed $argument $search_file_path | grep "score" | cut -d' ' -f4 >> $result_file_path
-        done
-    done < "$3"
+        replicate_score_file=replicate_scores
+        result_file_path="$3/$replicate_score_file/$result_file_name$text_extension"
+        grep -E "$search_string" "$search_file_path" | cut -d' ' -f5 > $result_file_path
+        #echo total number of line : ${#arr[@]}
+        #        for (( i=0; i<${tLen}; i++ ));
+        #        do
+        #            #    echo ${arr[$i]}
+        #            next_line="$((${arr[$i]} + $increment_value))"
+        #            #echo "$next_line" 
+        #            argument="$next_line$q$comma$d"
+        #            #    echo "$argument"
+        #            #sed $argument $search_file_path | grep "score" >> $result_file_path
+        #            sed $argument $search_file_path | grep "score" | cut -d' ' -f4 >> $result_file_path
+        #        done
+    done < "$2"
 }
 root_dir="$1"
 #part_dir="$2"
@@ -86,12 +86,12 @@ do
     full_path="$root_dir/$dir"
     score_file_dir="$full_path/$score_dir"
     replicate_file_path="$full_path/$replicate_dir/$replicate_file_name"
-    options="hi"
-    result_dir_path="$full_path/$replicate_dir/$hi_dir"
-    get_replicate_wise_scores $score_file_dir $options $replicate_file_path $result_dir_path
-    options="image"
-    result_dir_path="$full_path/$replicate_dir/$cancer_dir"
-    get_replicate_wise_scores $score_file_dir $options $replicate_file_path $result_dir_path
+   # options="hi"
+    result_dir_path="$full_path/$replicate_dir"
+    get_replicate_wise_scores $score_file_dir $replicate_file_path $result_dir_path
+   # options="image"
+   # result_dir_path="$full_path/$replicate_dir/$cancer_dir"
+   # get_replicate_wise_scores $score_file_dir $options $replicate_file_path $result_dir_path
     #egrep '^File|^score' $score_file_path > $filtered_score_path
     #echo "$filtered_score_path"
     #mit_count_file_path="$full_path/$mit_count_file"

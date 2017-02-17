@@ -1,4 +1,14 @@
 ###################################
+# Script description 
+# 
+# input - command name
+# input - root directory
+# input - name of new directory 
+###################################
+
+
+
+###################################
 # Function definitions
 ###################################
 
@@ -6,9 +16,7 @@ function create_directory {
     mkdir $1
 }
 
-###################################
-# Script goes here 
-###################################
+
 command_name="$1"
 root_dir="$2"
 #file=filtered_score.txt
