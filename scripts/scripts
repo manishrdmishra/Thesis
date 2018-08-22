@@ -28,3 +28,7 @@ egrep '^File|^score' scores.txt
 **********************************
 To find the changed files in two branches 
 git diff branch_one branch_two | grep  "diff --git" | cut -d' ' -f3
+**********************************
+To run the clang-format on a directory
+find ./directory -iname *.h -o -iname *.cpp | xargs clang-format -i
+**********************************
